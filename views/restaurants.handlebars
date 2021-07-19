@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <h2>There are {{restaurants.length}} restaurants</h2>
+    </div>
+    <div class="row">
+        {{#each restaurants}} <!-- for each restaurant in restaurants, create this html -->
+            <div class="col-3">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{image}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{name}}</h5>
+                        <a href="/restaurants/{{id}}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row">
+		<h2>{{restaurant.name}}</h2>
+	</div>
+	<div class="row">
+		<img class="item-img" src="{{restaurant.image}}" />
+	</div>
+	<div class="row">
+		{{#each restaurant.Menus}}
+		<div class="col-6">
+			<div class="card">
+				{{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
+				<div class="card-body">
+					<h5 class="card-title">{{this.title}}</h5>
+					<ul>
+						{{#each this.MenuItems}}
+						<li>{{this.name}} --- {{this.price}}</li>
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+	<div class="row">
+		<a href="/restaurants" class="btn btn-primary">Back to Restaurant List</a>
+	</div>
+</div>

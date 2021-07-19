@@ -1,0 +1,15 @@
+.container-fluid {
+    width: 100%
+}
+
+.card-img-top {
+    width: 286px; /* width of container */
+    height: 180px; /* height of container */
+    object-fit: cover;
+}
+
+.item-img {
+    width: 286px; /* width of container */
+    height: 180px; /* height of container */
+    object-fit: cover;
+}
