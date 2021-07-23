@@ -27,6 +27,9 @@ app.use(express.static('public'));
 
 app.use(express.json());
 
+//so req.body is not undefined
+app.use(express.urlencoded());
+
 
 const restaurantChecks = [
     check('name').not().isEmpty().trim().escape(),
@@ -58,13 +61,16 @@ app.post('/restaurants', restaurantChecks, async (req, res) => {
     res.sendStatus(201);
 });
 
-app.delete('/restaurants/:id', async (req, res) => {
+//DELETE ROUTE
+app.post('/delete/:id', async (req, res) => {
+    console.log("destroy restaurant")
     await Restaurant.destroy({
         where: {
             id: req.params.id
         }
     });
-    res.sendStatus(200);
+    //res.sendStatus(200);
+    res.redirect('/restaurants');
 });
 
 app.put('/restaurants/:id', restaurantChecks, async (req, res) => {
@@ -87,6 +93,24 @@ app.get('/menus', async (req, res) => {
     const menus = await Restaurant.findAll();
     res.render('menus', {menus});
 });
+
+// FORMS --------------------------------------------------------------------------------------------
+
+app.get('/new-restaurant-form', (req, res) => {
+    res.render('newRestaurantForm')
+})
+
+app.post('/new-restaurant', async (req, res) => {
+    let newRestaurant = await Restaurant.create(req.body)
+    const foundNewRestaurant = await Restaurant.findByPk(newRestaurant.id)
+    //if new sauce was created, send 201 status
+    if(foundNewRestaurant) {
+        res.status(201).send('New restaurant success')
+        //res.render('restaurants')
+    } else {
+        console.error('restaurant not created')
+    }
+})
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
